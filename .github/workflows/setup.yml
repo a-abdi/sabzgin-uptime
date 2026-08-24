@@ -42,23 +42,35 @@ jobs:
           ref: ${{ github.head_ref || github.ref_name }}
           token: ${{ secrets.GH_PAT || github.token }}
       - name: Update template
-        # 🔴 EXPECTED TO FAIL, AND THAT IS FINE — hence continue-on-error.
+        # 🔴 DISABLED, and `continue-on-error` was NOT enough.
         #
         # This step regenerates every file in .github/workflows/ from the
-        # upstream template, which would revert the SHA pins and the permission
-        # blocks. It cannot: GITHUB_TOKEN is forbidden from writing to
-        # .github/workflows/, so the push is rejected.
+        # upstream template. It cannot push them — GITHUB_TOKEN may not write to
+        # .github/workflows/ — and we do not want it to anyway: it would revert
+        # the SHA pins and the permission blocks, which is why
+        # update-template.yml is contents:read.
         #
-        # Without continue-on-error the whole Setup job stops here on the very
-        # first run, and the steps that matter — response time, README summary,
-        # graphs, and building the site — never execute. The job would go red on
-        # a repository that is in fact correctly configured.
-        continue-on-error: true
+        # The first attempt marked this `continue-on-error: true`. That masked
+        # the step and MISSED THE SIDE EFFECT. The regenerated workflow files
+        # stay in the working tree, so the very next step that commits —
+        # "Update response time" — pushed them too and was rejected identically.
+        # Measured, not theorised: run 32749956745 shows this step green and
+        # that one red, with every later step skipped.
+        #
+        # Skipping it entirely leaves the tree clean, so the steps that matter
+        # can commit their own data.
+        #
+        # COST: .upptimerc.yml's `workflowSchedule` no longer regenerates the
+        # cron lines in these files. They agree today (verified key by key). If
+        # a schedule is ever changed there, change it in the workflow file too,
+        # or re-enable this step once, review the regenerated diff, and re-pin.
+        if: false
         uses: upptime/uptime-monitor@2eb5d99848b4be6e474f26112cf29e5cd5ab313c # v1.43.15
         with:
           command: "update-template"
         env:
           GH_PAT: ${{ secrets.GH_PAT || github.token }}
+
       - name: Update response time
         uses: upptime/uptime-monitor@2eb5d99848b4be6e474f26112cf29e5cd5ab313c # v1.43.15
         with:

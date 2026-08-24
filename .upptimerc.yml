@@ -113,6 +113,15 @@ status-website:
 # It is also why the backup dead-man switches are a separate layer on
 # Healthchecks.io rather than more checks here, and why a second, independent
 # monitor is the documented mitigation if faster detection is ever needed.
+# 🔴 THESE VALUES NO LONGER REGENERATE THE WORKFLOW FILES.
+#
+# Upptime normally rewrites .github/workflows/* from this block. That
+# regeneration is deliberately disabled here — it would revert the SHA pins and
+# the permission blocks — so these keys and the `cron:` lines in the workflow
+# files are two copies of the same fact.
+#
+# They agree today, verified key by key. Change one and you must change the
+# other, or this file will describe a schedule that is not running.
 workflowSchedule:
   uptime: "*/5 * * * *"
   responseTime: "0 23 * * *"
