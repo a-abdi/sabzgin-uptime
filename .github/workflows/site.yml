@@ -27,6 +27,15 @@ on:
 concurrency:
   group: ${{ github.repository }}-${{ github.head_ref || github.ref_name }}-upptime
   cancel-in-progress: false
+# contents: write -> builds the static site and pushes it to the gh-pages
+#                    BRANCH via peaceiris/actions-gh-pages.
+#
+# NOT pages: write. That permission is for the Pages deployment API; this
+# repository publishes from a branch instead, which needs only contents.
+# Granting it would be permission we never exercise.
+permissions:
+  contents: write
+
 jobs:
   release:
     name: Build and deploy site
@@ -34,17 +43,17 @@ jobs:
     if: "!contains(github.event.head_commit.message, '[skip ci]')"
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:
           ref: ${{ github.head_ref || github.ref_name }}
           token: ${{ secrets.GH_PAT || github.token }}
       - name: Generate site
-        uses: upptime/uptime-monitor@v1.43.15
+        uses: upptime/uptime-monitor@2eb5d99848b4be6e474f26112cf29e5cd5ab313c # v1.43.15
         with:
           command: "site"
         env:
           GH_PAT: ${{ secrets.GH_PAT || github.token }}
-      - uses: peaceiris/actions-gh-pages@v4
+      - uses: peaceiris/actions-gh-pages@84c30a85c19949d7eee79c4ff27748b70285e453 # v4
         name: GitHub Pages Deploy
         with:
           github_token: ${{ secrets.GH_PAT || github.token }}

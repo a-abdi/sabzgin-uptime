@@ -24,17 +24,21 @@ on:
 concurrency:
   group: ${{ github.repository }}-${{ github.head_ref || github.ref_name }}-upptime
   cancel-in-progress: false
+# contents: write -> commits dependency updates
+permissions:
+  contents: write
+
 jobs:
   release:
     name: Deploy updates
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:
           ref: ${{ github.head_ref || github.ref_name }}
           token: ${{ secrets.GH_PAT || github.token }}
       - name: Update code
-        uses: upptime/updates@master
+        uses: upptime/updates@05575cf2281a7495cc1eb6ec186d0f346f378519 # master @ 2026-08-24
         env:
           GH_PAT: ${{ secrets.GH_PAT || github.token }}

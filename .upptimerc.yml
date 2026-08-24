@@ -1,31 +1,114 @@
-# Change these first
-owner: upptime # Your GitHub organization or username, where this repository lives
-repo: upptime # The name of this repository
+# Upptime configuration for sabzgin.ir
+#
+# 🔴 THIS FILE IS STAGED, NOT LIVE. It belongs in a SEPARATE PUBLIC repository
+# (`a-abdi/sabzgin-uptime`), which does not exist yet. It is kept here so it can
+# be reviewed and version-controlled alongside the system it watches; copy it to
+# the public repo's root when that repo is created. See ../README.md.
+#
+# 🔴 NOTHING SECRET MAY EVER BE ADDED TO THIS FILE. It is destined for a public
+# repository. Every URL below is already public (they are in DNS and answer
+# unauthenticated HTTPS today). Telegram credentials live in GitHub Actions
+# Secrets and are referenced by NAME only, in `secrets:` at the bottom.
+
+owner: a-abdi
+repo: sabzgin-uptime
+user-agent: a-abdi
 
 sites:
-  - name: Google
-    url: https://www.google.com
-  - name: Wikipedia
-    url: https://en.wikipedia.org
-  - name: Hacker News
-    url: https://news.ycombinator.com
-  - name: Secret Site
-    url: $SECRET_SITE
+  # ── Tier 1 — what a customer sees ─────────────────────────────────────────
+  # The only check that exercises the whole path a visitor uses:
+  # Cloudflare → Caddy → Nitro SSR → GraphQL → Postgres.
+  #
+  # 🔴 The body assertion is what makes this check real rather than decorative.
+  # It is NOT known whether Nuxt returns a non-2xx when the API is unreachable —
+  # it may well render a degraded page and still answer 200, in which case a
+  # status-code-only check would report a broken shop as healthy. Rather than
+  # guess, the check requires a string that can ONLY come from the API.
+  #
+  # The site name is served by the `siteBranding` GraphQL query. The build-time
+  # fallback baked into nuxt.config.ts is the shop's OLD name, «روستا بازار» —
+  # so if GraphQL fails, the title changes and this string disappears. Verified
+  # against the live page and against the storefront source: it is not hardcoded
+  # anywhere that renders on the homepage.
+  - name: "[page] Storefront"
+    url: https://sabzgin.ir/
+    __dangerous__body_down_if_text_missing: "سبزگین — محصولات اصیل روستایی"
+    maxResponseTime: 8000
+
+  # Nitro is up and serving. Renders nothing and calls no API, so it separates
+  # "the web container died" from "the API is slow".
+  - name: "[page] Storefront process"
+    url: https://sabzgin.ir/healthz
+    __dangerous__body_down_if_text_missing: "ok"
+    maxResponseTime: 5000
+
+  - name: "[page] Admin panel process"
+    url: https://admin.sabzgin.ir/healthz
+    __dangerous__body_down_if_text_missing: "ok"
+    maxResponseTime: 5000
+
+  # ── Tier 2 — the API process ──────────────────────────────────────────────
+  # Touches no dependency by design, so it cannot be made to fail by one.
+  - name: "[api] API process"
+    url: https://api.sabzgin.ir/health/live
+    __dangerous__body_down_if_text_missing: '"status":"ok"'
+    maxResponseTime: 5000
+
+  # ── Tier 3 — dependencies, one check each ─────────────────────────────────
+  #
+  # 🔴 SPLIT ON PURPOSE. A single /health/ready cannot be diagnosed from
+  # outside: on failure AllExceptionsFilter replaces the Terminus payload with a
+  # generic INTERNAL_ERROR envelope, so Postgres-down and Redis-down are
+  # byte-identical to a caller. The only diagnosis lived in the API's own log —
+  # which is exactly what you cannot reach during a Postgres outage, because the
+  # admin panel's login needs Postgres. Two URLs move the distinction somewhere
+  # an external monitor can see it.
+  #
+  # 🔴 These paths only exist from the deploy that added them. Creating this
+  # repository BEFORE that deploy makes both checks red on a healthy server.
+  - name: "[dep] Postgres"
+    url: https://api.sabzgin.ir/health/ready/db
+    maxResponseTime: 5000
+
+  # 🔴 Red here with every [page] green is WORSE than it looks, not better.
+  # Browsing degrades gracefully — the cache falls through to Postgres and the
+  # throttler fails open — but OTP login and refresh-token rotation call Redis
+  # directly with no fallback. Customers can browse and cannot buy, while the
+  # status page reads green. Treat it as page-worthy.
+  - name: "[dep] Redis"
+    url: https://api.sabzgin.ir/health/ready/redis
+    maxResponseTime: 5000
 
 status-website:
-  # Add your custom domain name, or remove the `cname` line if you don't have a domain
-  # Uncomment the `baseUrl` line if you don't have a custom domain and add your repo name there
-  cname: demo.upptime.js.org
-  # baseUrl: /your-repo-name
-  logoUrl: https://raw.githubusercontent.com/upptime/upptime.js.org/master/static/img/icon.svg
-  name: Upptime
-  introTitle: "**Upptime** is the open-source uptime monitor and status page, powered entirely by GitHub."
-  introMessage: This is a sample status page which uses **real-time** data from our [GitHub repository](https://github.com/upptime/upptime). No server required — just GitHub Actions, Issues, and Pages. [**Get your own for free**](https://github.com/upptime/upptime)
+  name: Sabzgin Status
+  theme: light
+  # 🔴 REQUIRED. There is no custom domain, so Pages serves this site from
+  # https://a-abdi.github.io/sabzgin-uptime/ — a sub-path, not a domain root.
+  # Without baseUrl the generated site requests its assets from the root and
+  # every one of them 404s: the page renders, broken, with no error to explain
+  # it. Set it to the repository name, and change it if the repo is renamed.
+  baseUrl: /sabzgin-uptime
+  introTitle: "Sabzgin — service status"
+  introMessage: "Automated availability checks for sabzgin.ir, run from GitHub Actions every 5 minutes."
   navbar:
     - title: Status
       href: /
-    - title: GitHub
-      href: https://github.com/$OWNER/$REPO
 
-# Upptime also supports notifications, assigning issues, and more
-# See https://upptime.js.org/docs/configuration
+# 5 minutes is Upptime's documented minimum. Note that GitHub's scheduled
+# workflows are best-effort and routinely run 5–20 minutes late under load, so
+# real detection latency is 10–25 minutes. That is accepted, and it is why the
+# backup dead-man switches are a separate layer rather than more checks here.
+workflowSchedule:
+  uptime: "*/5 * * * *"
+  responseTime: "0 23 * * *"
+  graphs: "0 0 * * *"
+  staticSite: "0 1 * * *"
+  summary: "0 0 * * *"
+
+# Names only — the values live in GitHub Actions Secrets and are never written
+# here. Telegram is delivered by GitHub's runners, not by the production VPS,
+# which matters because api.telegram.org is unreachable from that server.
+secrets:
+  - NOTIFICATION_TELEGRAM
+  - NOTIFICATION_TELEGRAM_BOT_KEY
+  - NOTIFICATION_TELEGRAM_CHAT_ID

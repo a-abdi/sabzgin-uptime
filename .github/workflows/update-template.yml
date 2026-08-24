@@ -24,18 +24,39 @@ on:
 concurrency:
   group: ${{ github.repository }}-${{ github.head_ref || github.ref_name }}-upptime
   cancel-in-progress: false
+# 🔴 READ-ONLY ON PURPOSE. THIS WORKFLOW IS DELIBERATELY UNABLE TO ACT.
+#
+# Its job is to REGENERATE every file in .github/workflows/ from the upstream
+# template, daily. That would silently revert the SHA pins and these very
+# permission blocks — an auto-updater that undoes pinning makes the pinning
+# decorative, and the config would drift back to moving refs with nobody
+# noticing.
+#
+# It already could not do this today: it writes to .github/workflows/, which
+# GITHUB_TOKEN is forbidden from touching, so it fails. But that is protection
+# by ACCIDENT — it would start working the moment a GH_PAT with the `workflow`
+# scope is added, which is exactly the kind of change made for an unrelated
+# reason months later.
+#
+# `contents: read` makes the intent explicit and durable instead.
+#
+# To take upstream template updates deliberately: run it manually, or restore
+# `contents: write`, review the regenerated diff, and re-pin.
+permissions:
+  contents: read
+
 jobs:
   release:
     name: Build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:
           ref: ${{ github.head_ref || github.ref_name }}
           token: ${{ secrets.GH_PAT || github.token }}
       - name: Update template
-        uses: upptime/uptime-monitor@master
+        uses: upptime/uptime-monitor@2eb5d99848b4be6e474f26112cf29e5cd5ab313c # master @ 2026-08-24 (identical to v1.43.15)
         with:
           command: "update-template"
         env:
