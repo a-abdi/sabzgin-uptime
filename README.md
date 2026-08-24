@@ -29,10 +29,10 @@ Telegram chat.
 
 **Do not make the Village repository public. Do not change its visibility.**
 
-| | Public | Private |
-|---|---|---|
-| GitHub Actions minutes | unlimited, free | 2,000/month free |
-| Upptime's usage | ~3,000 min/month (per Upptime's docs) | **exceeds the free tier** |
+|                        | Public                                | Private                   |
+| ---------------------- | ------------------------------------- | ------------------------- |
+| GitHub Actions minutes | unlimited, free                       | 2,000/month free          |
+| Upptime's usage        | ~3,000 min/month (per Upptime's docs) | **exceeds the free tier** |
 
 Publishing a status page from a private repo also needs an authenticated API
 proxy — extra moving parts on the thing whose job is to be simpler than what it
@@ -62,14 +62,14 @@ should answer `200`, not `404`.
    else from this repository is copied — see the checklist below.
 3. **Add four Actions secrets** (Settings → Secrets and variables → Actions):
 
-   | Secret | Value |
-   |---|---|
-   | `GH_PAT` | fine-grained PAT scoped to **this repo only**, read-write on Actions, Contents, Issues, Workflows |
-   | `NOTIFICATION_TELEGRAM` | `true` |
-   | `NOTIFICATION_TELEGRAM_BOT_KEY` | the BotFather token (same bot as Healthchecks) |
-   | `NOTIFICATION_TELEGRAM_CHAT_ID` | the chat id |
+   | Secret                          | Value                                                                                             |
+   | ------------------------------- | ------------------------------------------------------------------------------------------------- |
+   | `GH_PAT`                        | fine-grained PAT scoped to **this repo only**, read-write on Actions, Contents, Issues, Workflows |
+   | `NOTIFICATION_TELEGRAM`         | `true`                                                                                            |
+   | `NOTIFICATION_TELEGRAM_BOT_KEY` | the BotFather token (same bot as Healthchecks)                                                    |
+   | `NOTIFICATION_TELEGRAM_CHAT_ID` | the chat id                                                                                       |
 
-4. **Enable Pages**: Settings → Pages → *Deploy from a branch* → `gh-pages` / `(root)`.
+4. **Enable Pages**: Settings → Pages → _Deploy from a branch_ → `gh-pages` / `(root)`.
 5. **Pin the actions.** The template references `upptime/uptime-monitor@master`.
    A `@master` reference is remote code execution on every scheduled run, holding
    a PAT. Pin to a tag or a commit SHA and update deliberately.
@@ -89,7 +89,7 @@ token or chat id · **the origin server's IP address or SSH username** · any lo
 excerpt.
 
 The origin IP deserves its own line: the origin firewall admits only Cloudflare
-ranges, so publishing it is not exploitable *today* — but it is the one address
+ranges, so publishing it is not exploitable _today_ — but it is the one address
 that bypasses Cloudflare the moment that firewall has a gap, and it is a DDoS
 target. Every check in `.upptimerc.yml` uses a hostname; the IP is never needed.
 
@@ -110,7 +110,7 @@ Names are prefixed on purpose, because the tiers mean different things:
   green. Treat it as page-worthy.
 
 The dependency checks are split into two URLs precisely so the alert can say
-*which*. The 503 **body** still names nothing — that is deliberate, and it is why
+_which_. The 503 **body** still names nothing — that is deliberate, and it is why
 the distinction had to move into the path.
 
 **Detection latency is 10–25 minutes, not 5.** GitHub's scheduled workflows are
@@ -127,7 +127,7 @@ render a degraded page and still answer 200, which a status-only check would
 report as healthy.
 
 The asserted string is the site name from the `siteBranding` GraphQL query. The
-build-time fallback in `nuxt.config.ts` is the shop's *old* name, so a failed
+build-time fallback in `nuxt.config.ts` is the shop's _old_ name, so a failed
 query changes the title and the string disappears. Verified against the live page:
 the API-derived title is present and the fallback is absent.
 
