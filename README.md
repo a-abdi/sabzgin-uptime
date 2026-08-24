@@ -118,11 +118,11 @@ the distinction had to move into the path.
 The cron says every 5 minutes. **It does not run every 5 minutes.** Over the
 first 13 hours on this repository, 17 checks fired against a configured 156:
 
-| | |
-|---|---|
+|              |            |
+| ------------ | ---------- |
 | shortest gap | **31 min** |
-| median gap | **51 min** |
-| longest gap | **74 min** |
+| median gap   | **51 min** |
+| longest gap  | **74 min** |
 
 GitHub deprioritises scheduled workflows, and `*/5` on a free public repository
 is coalesced hard. An earlier estimate here said 10–25 minutes; the measured
@@ -132,7 +132,7 @@ Two consequences worth stating plainly:
 
 - **An outage shorter than about half an hour can pass between two checks and
   never be recorded at all.**
-- When an outage *is* caught, it may already have been running for the better
+- When an outage _is_ caught, it may already have been running for the better
   part of an hour.
 
 This is a platform limit, not a misconfiguration — lowering the cron cannot
@@ -140,7 +140,7 @@ raise the floor. It is also why the backup dead-man switches live on
 Healthchecks.io rather than here: **that layer is driven by pings from the
 server itself, so it is not subject to GitHub's scheduler at all.**
 
-If faster detection of *page* outages is ever wanted, the mitigation is a
+If faster detection of _page_ outages is ever wanted, the mitigation is a
 second, independent monitor alongside this one — not a replacement for it.
 
 ---
