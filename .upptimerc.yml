@@ -89,15 +89,30 @@ status-website:
   # it. Set it to the repository name, and change it if the repo is renamed.
   baseUrl: /sabzgin-uptime
   introTitle: "Sabzgin — service status"
-  introMessage: "Automated availability checks for sabzgin.ir, run from GitHub Actions every 5 minutes."
+  introMessage: "Automated availability checks for sabzgin.ir, run from GitHub Actions. Checks are scheduled frequently, but GitHub throttles scheduled jobs, so the interval between checks varies."
   navbar:
     - title: Status
       href: /
 
-# 5 minutes is Upptime's documented minimum. Note that GitHub's scheduled
-# workflows are best-effort and routinely run 5–20 minutes late under load, so
-# real detection latency is 10–25 minutes. That is accepted, and it is why the
-# backup dead-man switches are a separate layer rather than more checks here.
+# 5 minutes is Upptime's documented minimum. It is NOT what happens.
+#
+# 🔴 MEASURED, not estimated. Over the first 13 hours on this repository,
+# 17 Uptime CI runs fired against a configured 156:
+#
+#     min gap 31 min   median 51 min   max 74 min
+#
+# GitHub deprioritises scheduled workflows, and `*/5` on a free public repo is
+# coalesced hard. An earlier note here guessed "10-25 minutes"; the real figure
+# is roughly double that at the median and nearly triple at the tail.
+#
+# The cron stays at */5 because asking for less would only lower the ceiling —
+# GitHub gives what it gives. What changes is what may be BELIEVED of it: this
+# layer detects an outage in tens of minutes, not minutes, and any incident
+# shorter than about half an hour can pass between two checks unseen.
+#
+# It is also why the backup dead-man switches are a separate layer on
+# Healthchecks.io rather than more checks here, and why a second, independent
+# monitor is the documented mitigation if faster detection is ever needed.
 workflowSchedule:
   uptime: "*/5 * * * *"
   responseTime: "0 23 * * *"

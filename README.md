@@ -113,9 +113,35 @@ The dependency checks are split into two URLs precisely so the alert can say
 _which_. The 503 **body** still names nothing — that is deliberate, and it is why
 the distinction had to move into the path.
 
-**Detection latency is 10–25 minutes, not 5.** GitHub's scheduled workflows are
-best-effort and routinely run late. Accepted trade-off; documented so nobody
-believes the cron expression.
+### 🔴 Detection latency — measured, not assumed
+
+The cron says every 5 minutes. **It does not run every 5 minutes.** Over the
+first 13 hours on this repository, 17 checks fired against a configured 156:
+
+| | |
+|---|---|
+| shortest gap | **31 min** |
+| median gap | **51 min** |
+| longest gap | **74 min** |
+
+GitHub deprioritises scheduled workflows, and `*/5` on a free public repository
+is coalesced hard. An earlier estimate here said 10–25 minutes; the measured
+figure is roughly double that at the median and nearly triple at the tail.
+
+Two consequences worth stating plainly:
+
+- **An outage shorter than about half an hour can pass between two checks and
+  never be recorded at all.**
+- When an outage *is* caught, it may already have been running for the better
+  part of an hour.
+
+This is a platform limit, not a misconfiguration — lowering the cron cannot
+raise the floor. It is also why the backup dead-man switches live on
+Healthchecks.io rather than here: **that layer is driven by pings from the
+server itself, so it is not subject to GitHub's scheduler at all.**
+
+If faster detection of *page* outages is ever wanted, the mitigation is a
+second, independent monitor alongside this one — not a replacement for it.
 
 ---
 
