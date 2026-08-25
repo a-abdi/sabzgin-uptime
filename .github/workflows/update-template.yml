@@ -15,9 +15,31 @@
 
 
 name: Update Template CI
+# 🔴 NO SCHEDULE. This workflow is run deliberately or not at all.
+#
+# Its job is to regenerate every file in .github/workflows/ from the upstream
+# template. On 2026-08-25 it ran on the old daily cron and did exactly what it
+# is designed to do — and what we do not want:
+#
+#     Removed legacy .github/workflows
+#     Added new .github/workflows          <- would revert every SHA pin
+#     Removed old data from api            <- the response-time history
+#     Removed old data from graphs
+#     Removed old data from history        <- the uptime record itself
+#     ERROR Permission to a-abdi/sabzgin-uptime.git denied to github-actions[bot]
+#
+# The push was refused because `permissions: contents: read` below leaves the
+# token unable to write, so nothing was lost — api/, graphs/ and history/ are
+# all still there and the pins are intact. The guard worked.
+#
+# What remained was noise: a guaranteed failure, every night, emailing the
+# owner about a repository whose entire purpose is to email the owner when
+# something is wrong. That is how a real alert gets filtered.
+#
+# The trigger is removed rather than the workflow, so taking an upstream update
+# stays possible — run it by hand, restore `contents: write` for that run,
+# review the regenerated diff, and re-pin.
 on:
-  schedule:
-    - cron: "0 0 * * *"
   repository_dispatch:
     types: [update_template]
   workflow_dispatch:
