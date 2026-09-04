@@ -1,7 +1,7 @@
 url: https://api.sabzgin.ir/health/ready/db
-status: down
-code: 521
-responseTime: 260
-lastUpdated: 2026-09-04T06:28:50.712Z
+status: up
+code: 200
+responseTime: 627
+lastUpdated: 2026-09-04T11:10:54.494Z
 startTime: 2026-08-24T02:41:01.676Z
 generator: Upptime <https://github.com/upptime/upptime>
