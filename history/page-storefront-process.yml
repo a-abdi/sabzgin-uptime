@@ -1,7 +1,7 @@
 url: https://sabzgin.ir/healthz
-status: up
-code: 200
-responseTime: 580
-lastUpdated: 2026-09-04T11:10:44.371Z
+status: down
+code: 502
+responseTime: 716
+lastUpdated: 2026-09-04T20:47:33.768Z
 startTime: 2026-08-24T02:40:57.670Z
 generator: Upptime <https://github.com/upptime/upptime>
