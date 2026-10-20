@@ -4,19 +4,20 @@
     "url": "https://sabzgin.ir/",
     "icon": "https://icons.duckduckgo.com/ip3/sabzgin.ir.ico",
     "slug": "page-storefront",
-    "status": "up",
+    "status": "down",
     "uptime": "99.51%",
-    "uptimeDay": "100.00%",
-    "uptimeWeek": "100.00%",
+    "uptimeDay": "99.87%",
+    "uptimeWeek": "99.98%",
     "uptimeMonth": "100.00%",
     "uptimeYear": "99.51%",
     "time": 1925,
     "timeDay": 2117,
-    "timeWeek": 2457,
+    "timeWeek": 2534,
     "timeMonth": 2163,
     "timeYear": 1925,
     "dailyMinutesDown": {
-      "2026-09-04": 404
+      "2026-09-04": 404,
+      "2026-10-20": 2
     }
   },
   {
@@ -24,19 +25,20 @@
     "url": "https://sabzgin.ir/healthz",
     "icon": "https://icons.duckduckgo.com/ip3/sabzgin.ir.ico",
     "slug": "page-storefront-process",
-    "status": "up",
+    "status": "degraded",
     "uptime": "99.52%",
-    "uptimeDay": "100.00%",
+    "uptimeDay": "99.97%",
     "uptimeWeek": "100.00%",
     "uptimeMonth": "100.00%",
     "uptimeYear": "99.52%",
-    "time": 758,
-    "timeDay": 820,
-    "timeWeek": 1062,
-    "timeMonth": 860,
-    "timeYear": 758,
+    "time": 883,
+    "timeDay": 4727,
+    "timeWeek": 2037,
+    "timeMonth": 1111,
+    "timeYear": 883,
     "dailyMinutesDown": {
-      "2026-09-04": 395
+      "2026-09-04": 395,
+      "2026-10-20": 0
     }
   },
   {
@@ -52,7 +54,7 @@
     "uptimeYear": "99.66%",
     "time": 941,
     "timeDay": 730,
-    "timeWeek": 907,
+    "timeWeek": 940,
     "timeMonth": 955,
     "timeYear": 941,
     "dailyMinutesDown": {
@@ -72,7 +74,7 @@
     "uptimeYear": "99.66%",
     "time": 920,
     "timeDay": 932,
-    "timeWeek": 1103,
+    "timeWeek": 1116,
     "timeMonth": 973,
     "timeYear": 920,
     "dailyMinutesDown": {
@@ -92,7 +94,7 @@
     "uptimeYear": "99.66%",
     "time": 716,
     "timeDay": 811,
-    "timeWeek": 802,
+    "timeWeek": 798,
     "timeMonth": 754,
     "timeYear": 716,
     "dailyMinutesDown": {
@@ -112,7 +114,7 @@
     "uptimeYear": "100.00%",
     "time": 656,
     "timeDay": 575,
-    "timeWeek": 895,
+    "timeWeek": 884,
     "timeMonth": 713,
     "timeYear": 656,
     "dailyMinutesDown": {}
