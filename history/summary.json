@@ -11,9 +11,9 @@
     "uptimeMonth": "99.63%",
     "uptimeYear": "99.32%",
     "time": 1922,
-    "timeDay": 1930,
-    "timeWeek": 2435,
-    "timeMonth": 2149,
+    "timeDay": 1838,
+    "timeWeek": 2386,
+    "timeMonth": 2141,
     "timeYear": 1922,
     "dailyMinutesDown": {
       "2026-09-04": 404,
@@ -26,16 +26,16 @@
     "icon": "https://icons.duckduckgo.com/ip3/sabzgin.ir.ico",
     "slug": "page-storefront-process",
     "status": "up",
-    "uptime": "99.33%",
+    "uptime": "99.34%",
     "uptimeDay": "88.85%",
     "uptimeWeek": "98.41%",
     "uptimeMonth": "99.63%",
-    "uptimeYear": "99.33%",
-    "time": 880,
-    "timeDay": 3393,
-    "timeWeek": 1891,
-    "timeMonth": 1099,
-    "timeYear": 880,
+    "uptimeYear": "99.34%",
+    "time": 877,
+    "timeDay": 3342,
+    "timeWeek": 1824,
+    "timeMonth": 1096,
+    "timeYear": 877,
     "dailyMinutesDown": {
       "2026-09-04": 395,
       "2026-10-20": 161
@@ -52,11 +52,11 @@
     "uptimeWeek": "100.00%",
     "uptimeMonth": "100.00%",
     "uptimeYear": "99.66%",
-    "time": 941,
-    "timeDay": 730,
-    "timeWeek": 940,
-    "timeMonth": 955,
-    "timeYear": 941,
+    "time": 944,
+    "timeDay": 1133,
+    "timeWeek": 960,
+    "timeMonth": 958,
+    "timeYear": 944,
     "dailyMinutesDown": {
       "2026-09-04": 282
     }
@@ -72,11 +72,11 @@
     "uptimeWeek": "100.00%",
     "uptimeMonth": "100.00%",
     "uptimeYear": "99.66%",
-    "time": 920,
-    "timeDay": 932,
-    "timeWeek": 1116,
-    "timeMonth": 973,
-    "timeYear": 920,
+    "time": 917,
+    "timeDay": 765,
+    "timeWeek": 1064,
+    "timeMonth": 965,
+    "timeYear": 917,
     "dailyMinutesDown": {
       "2026-09-04": 282
     }
@@ -92,11 +92,11 @@
     "uptimeWeek": "100.00%",
     "uptimeMonth": "100.00%",
     "uptimeYear": "99.66%",
-    "time": 716,
-    "timeDay": 811,
-    "timeWeek": 798,
-    "timeMonth": 754,
-    "timeYear": 716,
+    "time": 720,
+    "timeDay": 1004,
+    "timeWeek": 835,
+    "timeMonth": 761,
+    "timeYear": 720,
     "dailyMinutesDown": {
       "2026-09-04": 282
     }
@@ -112,11 +112,11 @@
     "uptimeWeek": "100.00%",
     "uptimeMonth": "100.00%",
     "uptimeYear": "100.00%",
-    "time": 656,
-    "timeDay": 575,
-    "timeWeek": 884,
-    "timeMonth": 713,
-    "timeYear": 656,
+    "time": 658,
+    "timeDay": 748,
+    "timeWeek": 885,
+    "timeMonth": 728,
+    "timeYear": 658,
     "dailyMinutesDown": {}
   }
 ]
