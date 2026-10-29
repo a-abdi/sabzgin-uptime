@@ -10,11 +10,11 @@
     "uptimeWeek": "100.00%",
     "uptimeMonth": "99.63%",
     "uptimeYear": "99.40%",
-    "time": 1941,
-    "timeDay": 1644,
-    "timeWeek": 2115,
-    "timeMonth": 2136,
-    "timeYear": 1941,
+    "time": 1948,
+    "timeDay": 2380,
+    "timeWeek": 2145,
+    "timeMonth": 2144,
+    "timeYear": 1948,
     "dailyMinutesDown": {
       "2026-09-04": 404,
       "2026-10-20": 162
@@ -26,16 +26,16 @@
     "icon": "https://icons.duckduckgo.com/ip3/sabzgin.ir.ico",
     "slug": "page-storefront-process",
     "status": "up",
-    "uptime": "99.41%",
+    "uptime": "99.42%",
     "uptimeDay": "100.00%",
     "uptimeWeek": "100.00%",
     "uptimeMonth": "99.63%",
-    "uptimeYear": "99.41%",
-    "time": 901,
-    "timeDay": 842,
-    "timeWeek": 1126,
-    "timeMonth": 1197,
-    "timeYear": 901,
+    "uptimeYear": "99.42%",
+    "time": 904,
+    "timeDay": 1147,
+    "timeWeek": 1118,
+    "timeMonth": 1208,
+    "timeYear": 904,
     "dailyMinutesDown": {
       "2026-09-04": 395,
       "2026-10-20": 161
@@ -52,11 +52,11 @@
     "uptimeWeek": "100.00%",
     "uptimeMonth": "100.00%",
     "uptimeYear": "99.70%",
-    "time": 954,
-    "timeDay": 748,
-    "timeWeek": 1042,
-    "timeMonth": 989,
-    "timeYear": 954,
+    "time": 959,
+    "timeDay": 1317,
+    "timeWeek": 1094,
+    "timeMonth": 998,
+    "timeYear": 959,
     "dailyMinutesDown": {
       "2026-09-04": 282
     }
@@ -72,11 +72,11 @@
     "uptimeWeek": "100.00%",
     "uptimeMonth": "100.00%",
     "uptimeYear": "99.70%",
-    "time": 936,
-    "timeDay": 993,
-    "timeWeek": 1101,
-    "timeMonth": 1025,
-    "timeYear": 936,
+    "time": 934,
+    "timeDay": 812,
+    "timeWeek": 1082,
+    "timeMonth": 1019,
+    "timeYear": 934,
     "dailyMinutesDown": {
       "2026-09-04": 282
     }
@@ -93,9 +93,9 @@
     "uptimeMonth": "100.00%",
     "uptimeYear": "99.70%",
     "time": 740,
-    "timeDay": 606,
-    "timeWeek": 914,
-    "timeMonth": 813,
+    "timeDay": 763,
+    "timeWeek": 913,
+    "timeMonth": 812,
     "timeYear": 740,
     "dailyMinutesDown": {
       "2026-09-04": 282
@@ -112,11 +112,11 @@
     "uptimeWeek": "100.00%",
     "uptimeMonth": "100.00%",
     "uptimeYear": "100.00%",
-    "time": 683,
-    "timeDay": 582,
-    "timeWeek": 895,
-    "timeMonth": 805,
-    "timeYear": 683,
+    "time": 689,
+    "timeDay": 1118,
+    "timeWeek": 902,
+    "timeMonth": 819,
+    "timeYear": 689,
     "dailyMinutesDown": {}
   }
 ]
