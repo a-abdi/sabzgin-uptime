@@ -1,7 +1,7 @@
 url: https://api.sabzgin.ir/health/ready/redis
 status: up
 code: 200
-responseTime: 621
-lastUpdated: 2026-11-20T03:47:57.724Z
+responseTime: 910
+lastUpdated: 2026-11-21T03:38:55.271Z
 startTime: 2026-08-24T02:41:02.896Z
 generator: Upptime <https://github.com/upptime/upptime>
